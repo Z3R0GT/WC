@@ -1,0 +1,26 @@
+from Jeremit Sanchez (Z3R0GT) Software License - Version 0.2 - May 5, 2023
+
+Permission is hereby granted, free of charge, to any person except organizations,
+obtain a copy of the software and accompanying documentation covered by this license (the "Software")
+to use, display, run and transmit the Software, except for the following conditions:
+
+  1) the use of the source code present in this Software may not be replicated by any
+  reason, except for the file "LibProcess" with the extension ".py" (written in the language of
+  python programming) that can be used by a direct or written authorization from the creator of
+  this Software (the libraries present in the "tkinter" and "PIL" code are not owned by
+  of the licensee).
+ 
+  2) The use of the source code can only be for (with the exception of the previous point) education or
+  example, but not a copy of it.
+
+The copyright notices in the Software and this entire statement, including the license
+above license, this restriction and the following disclaimer, must be included
+in all copies of the Software, in their entirety, and any work using the "LibProcess" extension
+".py"(written in the python programming language).
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+TITLE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR ANYONE WHO
+DISTRIBUTE THE SOFTWARE WILL BE LIABLE FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER FOR
+CONTRACT, TORT OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHERWISE
+TREATMENTS IN THE SOFTWARE.
