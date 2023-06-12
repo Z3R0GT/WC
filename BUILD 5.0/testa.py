@@ -1,22 +1,28 @@
 from WC import *
-from tkinter import Tk
 
-NAME = "Dragon Hunter"
+while True:
+    a = input("CONSULTA \n")
 
-CREDIT = {"Main": "Z3R0_GT",
-          "Image": "ThemeFinland",
-          "Programmer": "Z3R0_GT",
-          "History": "Honting Fap, \n Un extraño con sombrero de copa",
-          "Stats": "Gio"
-          }
-SECRET = "ESTE EASTER EGG ES PARA BARRETO ALCANTARA IMANOL, UN BUEN AMIGO :D"
+    if a == "VARIABLES":
+        print(WC.DEV.DEVCONSULT())
 
-X_GLOBAL = 900
-Y_GLOBAL = 500
+    elif a == "SETDIR":
+        B = input("DIRECCION: \n ")
+        WC.Config.set_dir(DIR=B)
 
-TRANSFORM = f"{str(X_GLOBAL)}x{str(Y_GLOBAL)}"
+    elif a == "SAVE":    
 
-NAMEVERSION = "Alpha-Priv "
-VERSION = "0.3"
+        data = {
+            "Nombre": "jose",
+            "edad": "13",
+            "apellido": "uwu"
+        }
 
-PATH_INFO = f"Path #18 news (05/09/2023): \n- Lib version {__VERSION__} \n- Current app version: {NAMEVERSION} {VERSION} \n- App is already for test in case except by load of   archive .json \n- we ready up for you feed back "
+        WC.System.save_archive(data=data, ID_FOLDER=int(input("ID FOLDER: ")), name_archive=input("Nombre de archivo: \n"))
+    elif a == "LOAD":
+        pass
+
+    elif a == "EXIT":
+        break
+    elif a == "SOUND":
+        WC.Procces.SoundPlay(ID_DIR=int(input("DIR: \n")), NAME_ARCHIVE=input("NAME: \n"))

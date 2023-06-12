@@ -10,13 +10,14 @@ this lib was create by @Z3R0_GT (GitHub) in , if you find a bug
 report to Z3R0_GT#3883
 """
 
-import os
-import json
+import os, json, winsound
 
 from tkinter import Text, Label, Entry, StringVar, Scrollbar, Listbox, Button, OptionMenu
 from typing_extensions import Literal
 from tkinter.font import Font
 from PIL import Image, ImageTk
+
+from tkVideoPlayer import TkinterVideo
 
 __VERSION__ = 5.0
 CURRENT_WINDOW = ["CONTINUE"]
@@ -36,22 +37,21 @@ __ITEM_CHOICE = None
 _Nodes__ITEM_SELECT = []
 _Config__DIR_FOLDER = [os.path.dirname(__file__)]
 _Nodes__IMAGE_LOAD = []
+_Config__VIDEO = []
+_Config__SOUND = []
 
 __ID_WINDOW = 1
 
-def __DEV__(type: Literal["DEV", "CONSULT"] = ..., ID: int = ...):
-
-    if type == "DEV":
-        return {
-            "Item selecionados": f"{_Nodes__ITEM_SELECT}",
-            "Dirección de un folder": f"{_Config__DIR_FOLDER}",
-            "Item escogido": f"{__ITEM_CHOICE}",
-            "Numero de ventana": f"{__ID_WINDOW}",
-            "Imagenes cargadas": f"{_Nodes__IMAGE_LOAD}",
-            "Ventanas guardadas": f"{CURRENT_WINDOW}"
-        }
-    elif type == "CONSULT":
-        return _Nodes__ITEM_SELECT[ID]
+def __DEV__():
+    return {
+        "Item selecionados": f"{_Nodes__ITEM_SELECT}",
+        "Dirección de un folder": f"{_Config__DIR_FOLDER}",
+        "Item escogido": f"{__ITEM_CHOICE}",
+        "Numero de ventana": f"{__ID_WINDOW}",
+        "Imagenes cargadas": f"{_Nodes__IMAGE_LOAD}",
+        "Ventanas guardadas": f"{CURRENT_WINDOW}",
+        "Archivos de video": f"{_Config__VIDEO}"
+    }
 
 
 class _WC:
@@ -137,12 +137,12 @@ class _WC:
         scroll.grid(padx=660, ipady=178)
         return NODE_TEXT
 
-    def __Nodes__add_action_button(NODE_MASTER, TYPE: Literal["exit", "load_window", "entry", "save", "load", "test"] = ..., ID_WINDOW: int = ..., ID_FOLDER: int = ..., DATA_SAVE: dict = ...):
+    def __Nodes__add_action_button(NODE_MASTER, TYPE: Literal["exit", "load_window", "save_archive", "test"] = ..., ID_WINDOW: int = ..., ID_FOLDER: int = ..., DATA_SAVE: dict = ...):
 
         if TYPE == "exit":
             CURRENT_WINDOW.insert(0, "EXIT")
             return NODE_MASTER.destroy()
-        elif TYPE == "save":
+        elif TYPE == "save_archive":
             __ID_WINDOW = ID_WINDOW
 
             _WC._System__save_archive(
@@ -180,7 +180,30 @@ class _WC:
             type_font = Font(family="italic", size=SIZE)
 
         return type_font
+    
+    def _Nodes_video_config(NODE_VIDEO: TkinterVideo, TYPE:Literal["play", "load", "frame"], ID_FOLDER:int=..., NAME:str=..., IS_SPECIF_SEC:bool=True, VALUE:int=...):
 
+        if TYPE == "play":
+            if NODE_VIDEO.is_paused():
+                NODE_VIDEO.play()
+            else:
+                NODE_VIDEO.pause()
+        elif TYPE == "load":
+            NODE_VIDEO.load(path=os.path.join(_Config__DIR_FOLDER[ID_FOLDER], NAME))
+        elif TYPE == "frame":
+            if IS_SPECIF_SEC:
+                NODE_VIDEO.seek(VALUE)
+            else:
+                ver_to = int(NODE_VIDEO.current_duration())+VALUE
+                ver_limit = NODE_VIDEO.video_info()
+
+                if ver_to < int(ver_limit["duration"]): 
+                    NODE_VIDEO.seek(ver_to)
+                else:
+                    NODE_VIDEO.seek(int(ver_limit["duration"]))
+
+    def _Procces_sound_play(ID_DIR:int, NAME_ARCHIVE:str):
+        winsound.PlaySound(os.path.join(_Config__DIR_FOLDER[ID_DIR], NAME_ARCHIVE), winsound.SND_FILENAME)
 
 class WC:
 
@@ -199,7 +222,7 @@ class WC:
 
     class Nodes:
 
-        def FuncButton(NODE_MASTER, FONT: Font, TYPE: Literal["exit", "load_window", "entry", "save", "load", "test"], IDS: list = ..., TEXT: str = ..., DATA: dict = ..., X=0, Y=0, HEIGH=0, WIDTH=0):
+        def FuncButton(NODE_MASTER, FONT: Font, TYPE: Literal["exit", "load_window", "save_archive", "test"], IDS: list = ..., TEXT: str = ..., DATA: dict = ..., X=0, Y=0, HEIGH=0, WIDTH=0):
             """
             elige un tipo de boton acorde la necesidad, siendo los siguientes casos: \n
             1) si quieres cargar "load_window" usa "IDS" como un arreglo y en la primera posicion coloca el "ID" de ventana que se va usar \n
@@ -211,7 +234,7 @@ class WC:
             if TYPE == "load_window":
                 node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE, ID_WINDOW=IDS[0]), font=FONT)
-            elif TYPE == "save":
+            elif TYPE == "save_archive":
                 node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE, ID_WINDOW=IDS[0], ID_FOLDER=IDS[1], DATA_SAVE=DATA), font=FONT)
             elif TYPE == "exit":
@@ -220,6 +243,18 @@ class WC:
             else:
                 node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE), font=FONT)
+
+            if HEIGH == 0 or WIDTH == 0:
+                node_button.place(x=X, y=Y)
+            else:
+                node_button.place(x=X, y=Y, height=HEIGH, width=WIDTH)
+
+            return node_button
+
+        def FuncButtonVideo(NODE_MASTER, FONT: Font, NODE_VIDEO: TkinterVideo, TYPE:Literal["play", "load", "frame"], ID_FOLDER:int=..., NAME:str=..., IS_SPECIF_SEC:bool=True,TEXT: str = ..., VALUE:int=...,X=0, Y=0, HEIGH=0, WIDTH=0):
+
+            node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC._Nodes_video_config(
+                NODE_VIDEO=NODE_VIDEO, TYPE=TYPE, IS_SPECIF_SEC=IS_SPECIF_SEC, VALUE=VALUE, ID_FOLDER=ID_FOLDER, NAME=NAME), font=FONT)
 
             if HEIGH == 0 or WIDTH == 0:
                 node_button.place(x=X, y=Y)
@@ -317,6 +352,20 @@ class WC:
             node_lis.place(x=X, y=Y, height=HEIGH, width=WIDTH)
 
             return node_lis
+        
+        def FuncVideoPlayer(NODE_MASTER, SCALED:bool=False, HEIGH:int=..., WIDTH:int=..., X=0, Y=0):
+            
+            if SCALED:
+                node_video = TkinterVideo(master=NODE_MASTER, scaled=SCALED)
+            else:
+                node_video = TkinterVideo(master=NODE_MASTER)
+
+            if HEIGH != 0 or WIDTH !=0:
+                node_video.place(x=X, y=Y, width=WIDTH, height=HEIGH)
+            else:
+                node_video.place(x=X, y=Y)
+            
+            return node_video
 
     class Procces:
         def set_window(ID: int, TAG):
@@ -325,6 +374,9 @@ class WC:
             WindowMain() para poder ser reconozible a la libreria
             """
             CURRENT_WINDOW.append((ID, TAG))
+
+        def SoundPlay(ID_DIR, NAME_ARCHIVE):
+            return _WC._Procces_sound_play(ID_DIR=ID_DIR, NAME_ARCHIVE=NAME_ARCHIVE)
 
         def TextEdit(NODE_TEXT: Text, TYPE: Literal["default", "custom"], TEXT="", IS_TEXT=True, IS_EMPY=True, LIST: list = ...):
             """
