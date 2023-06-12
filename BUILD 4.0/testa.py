@@ -1,4 +1,4 @@
-from WCPriv import *
+from WC import *
 
 while True:
     a = input("CONSULTA \n")
