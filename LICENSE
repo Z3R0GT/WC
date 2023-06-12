@@ -1,26 +1,17 @@
-from Jeremit Sanchez (Z3R0GT) Software License - Version 0.2 - May 5, 2023
+Para Z3R0_GT || Z3R0GT  Licencia de Software - Version 0.4 - Junio 12 - 2023
 
-Permission is hereby granted, free of charge, to any person except organizations,
-obtain a copy of the software and accompanying documentation covered by this license (the "Software")
-to use, display, run and transmit the Software, except for the following conditions:
+Contacto: contac.es.z3r0.gt@gmail.com
 
-  1) the use of the source code present in this Software may not be replicated by any
-  reason, except for the file "LibProcess" with the extension ".py" (written in the language of
-  python programming) that can be used by a direct or written authorization from the creator of
-  this Software (the libraries present in the "tkinter" and "PIL" code are not owned by
-  of the licensee).
+Por la presente se otorga permiso, sin cargo, a cualquier persona, excepto a organizaciones (compañias), obtener una copia del software y la documentación adjunta cubiertos por esta licencia (el "Software")
+para usar, mostrar, ejecutar y transmitir el Software, se debe cumplir las siguientes condiciones:
+
+   1. el uso del código fuente presente en este Software no puede ser replicado por ningún razón, a excepción de la version 1.0 (escrito en el lenguaje de python) que puede ser utilizado por una autorización directa o por escrito del creador de este Software (las bibliotecas presentes en el código de caracter externo, no son propiedad del autor).
  
-  2) The use of the source code can only be for (with the exception of the previous point) education or
-  example, but not a copy of it.
+   2. El uso del código solo debe ser para proyecto personales, mas no para aplicaciones de tipo comercial o empresarial, siendo el caso, la entidad (organicaciones, empresas....) deben de incluir en su acuerdo o en su defecto los creditos de dicho proyecto una acreditación que este Software se empleo para su creación en conjunto con el autor de este, a si mismo notificar a este mismo el uso este Software.
 
-The copyright notices in the Software and this entire statement, including the license
-above license, this restriction and the following disclaimer, must be included
-in all copies of the Software, in their entirety, and any work using the "LibProcess" extension
-".py"(written in the python programming language).
+   3. Las versiones presentes, sin importar si estan bajo soporte o no, cuentan con el respaldo de esta licencia (a excepcion de los expuesto en el punto 1. ).
 
-THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
-TITLE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR ANYONE WHO
-DISTRIBUTE THE SOFTWARE WILL BE LIABLE FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER FOR
-CONTRACT, TORT OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHERWISE
-TREATMENTS IN THE SOFTWARE.
+Los avisos de derechos de autor en el Software y toda esta declaración, incluida la licencia anterior, esta restricción y el siguiente descargo de responsabilidad deben incluirse en todas las copias del Software, en su totalidad, y cualquier trabajo que utilice alguna version de este (a excepcion de lo expuesto en el punto 1.)
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL" SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN FIN DETERMINADO,
+TÍTULO Y NO INFRACCIÓN. EN NINGÚN CASO LOS TITULARES DE LOS DERECHOS DE AUTOR O CUALQUIER PERSONA QUE DISTRIBUYA EL SOFTWARE SERÁ RESPONSABLE DE CUALQUIER DAÑO U OTRA RESPONSABILIDAD, YA SEA POR CONTRATO, AGRAVIO O DE CUALQUIER OTRA FORMA, QUE SURJA O ESTÉ RELACIONADO CON EL SOFTWARE O EL USO O DE OTRO MODO TRATAMIENTOS EN EL SOFTWARE.
