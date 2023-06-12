@@ -5,29 +5,29 @@ Z3R0_GT con la iniciativa de "Facilitar el desarrollo de GUIs con python, sin pe
 tenemos la vision de ser una libreria usada por varias personas como compañiar para facilitarles el proceso, con el objetivo de ser lo mas simples posibles
 
 ## LIBRERIAS
-Usamos las siguientes librerias externas (no viene pre-instalados con python):
+- Usamos las siguientes librerias externas (no viene pre-instalados con python):
     - Pillow
     - tkVideoPlayer
     - playsound
 
-Pre-instalados:
-    - os
-    - json
+- Pre-instalados:
+    - os.
+    - json.
 
 # ¿QUE OFRECEMOS?
 
-usamos un tipeado similar a java para crear GUIs basicas, teniendo las siguientes funciones:
+- Usamos un tipeado similar a java para crear GUIs basicas, teniendo las siguientes funciones:
     - Inicio de aplicacion para correr mutiples ventanas como un solo proceso
     - Nodos:
-        Botones, Areas de texto, etiquetas tanto para incluir imagenes adaptables como texto corriente, areas especificas para incluir entrada de usuario, menu de opciones, lista de botones.
+        - Botones, Areas de texto, etiquetas tanto para incluir imagenes adaptables como texto corriente, areas especificas para incluir entrada de usuario, menu de opciones, lista de botones.
     - Procesos:
-        Puedes crear fuentes de texto (todas provenientes de tkinter), editar areas de texto, crear ventanas (necesario para ejecucion de programa), centrar ventanas, incluir barra de movimiento (scroll).
+        - Puedes crear fuentes de texto (todas provenientes de tkinter), editar areas de texto, crear ventanas (necesario para ejecucion de programa), centrar ventanas, incluir barra de movimiento (scroll).
     - Sistema:
-        guardar y cargar archivos json (se usa diccionarios para este caso).
+        - guardar y cargar archivos json (se usa diccionarios para este caso).
     - Configuración:
-        crear y almacenar direcciones para su posterior uso.
+        - crear y almacenar direcciones para su posterior uso.
     - Desarrollador:
-        puedas tambien revisar un listado de objetos en general, tanto datos almacenados, funciones y ventana creadas y objetos guardados en general.
+        - puedas tambien revisar un listado de objetos en general, tanto datos almacenados, funciones y ventana creadas y objetos guardados en general.
 
 dentro de cada carpeta, se encuentra la version correspondiente a WC con un pequeño ejemplo para que puedas testear las capacidades de la version elegida
 
