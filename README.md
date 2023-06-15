@@ -6,13 +6,13 @@ tenemos la vision de ser una libreria usada por varias personas como compañiar 
 
 ## LIBRERIAS
 - Usamos las siguientes librerias externas (no viene pre-instalados con python):
-    - Pillow
-    - tkVideoPlayer
-    - playsound
+    - Pillow.
+    - tkVideoPlayer.
 
 - Pre-instalados:
     - os.
     - json.
+    - winsound
 
 # ¿QUE OFRECEMOS?
 
@@ -29,16 +29,22 @@ tenemos la vision de ser una libreria usada por varias personas como compañiar 
     - Desarrollador:
         - puedas tambien revisar un listado de objetos en general, tanto datos almacenados, funciones y ventana creadas y objetos guardados en general.
 
-dentro de cada carpeta, se encuentra la version correspondiente a WC con un pequeño ejemplo para que puedas testear las capacidades de la version elegida
+dentro de cada carpeta, se encuentra la version correspondiente a WC con un pequeño ejemplo para que puedas testear las capacidades de la version elegida, también es compatible (Version 4) para usarlo con consola
 
 # VERSIONES
 Numero de versión que resive o no soporte, ademas del tiempo de experación de soporte.
 
-| Version    | Soporte                       | Cotenido         |
-| -------    | ------------------            | ---------        |
-| 5.0 > ...  | :white_check_mark:            |Version launch    |
-| 4.0 > 4.9  | :white_check_mark:            |Number Test       |
-| 1.0 > 2.0  | :negative_squared_cross_mark: |Number of path    |
+| Version    | Soporte                       | Cotenido               |
+| -------    | ------------------            | ---------              |
+| 5.0 > ...  | :white_check_mark:            |Versión de MP3 Y MP4    |
+| 4.0 > 4.9  | :white_check_mark:            |Carga pantalla          |
+| 1.0 > 2.0  | :negative_squared_cross_mark: |Base de libreria        |
+
+Las versiones se aplicaran bajo el siguiente condicionamiento para identificar y tener la capacidad de leer:
+--(Nombre de contrucción) (Version numerica de lanamizamiento).(Número de revisión actulizado)--, por ejemplo: 
+
+BUILD 3.2   -- en este caso se puede que la versión a tratar es la BUILD de version 3 cuya revisión de codigo corresponde a la segunda vez desde que se lanzo, sin embargo en caso de encontrar un tercer numero como en este caso: 
+BUILD 5.0.1 -- se puede intertrepar que la BUILD esta en su versión 5 que no se a revisado desde que se lanzo pero es la primera versión pre-liminar para lanzar una revisión pronto (el tercer numero).
 
 ## Notas
 
