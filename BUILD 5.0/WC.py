@@ -19,7 +19,7 @@ from PIL import Image, ImageTk
 
 from tkVideoPlayer import TkinterVideo
 
-__VERSION__ = 5.0
+VERSION_LIB = "5.0.4"
 CURRENT_WINDOW = ["CONTINUE"]
 """
 Esta es una constante de estado, cuando esta en "CONTINUE" el programa podra correr con normalidad,
@@ -33,21 +33,21 @@ NO TOCAR EN UN "print" JAMAS!; esta variable es usar como probravación de libre
 caso que se use en un "print" puede causar un bug de flujo
 """
 
-__ITEM_CHOICE = None
+_ITEM_CHOICE = None
 _Nodes__ITEM_SELECT = []
 _Config__DIR_FOLDER = [os.path.dirname(__file__)]
 _Nodes__IMAGE_LOAD = []
 _Config__VIDEO = []
 _Config__SOUND = []
 
-__ID_WINDOW = 1
+_ID_WINDOW = 1
 
 def __DEV__():
     return {
         "Item selecionados": f"{_Nodes__ITEM_SELECT}",
         "Dirección de un folder": f"{_Config__DIR_FOLDER}",
-        "Item escogido": f"{__ITEM_CHOICE}",
-        "Numero de ventana": f"{__ID_WINDOW}",
+        "Item escogido": f"{_ITEM_CHOICE}",
+        "Numero de ventana": f"{_ID_WINDOW}",
         "Imagenes cargadas": f"{_Nodes__IMAGE_LOAD}",
         "Ventanas guardadas": f"{CURRENT_WINDOW}",
         "Archivos de video": f"{_Config__VIDEO}"
@@ -82,15 +82,15 @@ class _WC:
         except:
             return print(f"\n ||ERROR|| info= ID FOLDER: {_Config__DIR_FOLDER[ID_FOLDER]}, LIST err: {TYPE} \n")
 
-    def __Load_window():
+    def _Load_window():
 
-        if __ID_WINDOW == 0:
-            CURRENT_WINDOW[(__ID_WINDOW+1)][1].WindowMain()
+        if _ID_WINDOW == 0:
+            CURRENT_WINDOW[(_ID_WINDOW+1)][1].WindowMain()
         else:
-            CURRENT_WINDOW[__ID_WINDOW][1].WindowMain()
+            CURRENT_WINDOW[_ID_WINDOW][1].WindowMain()
         return print("HECHO LOAD WINDOW")
 
-    def __call_back(event, id):
+    def _call_back(event, id):
 
         selec = event.widget.curselection()
         if selec:
@@ -99,13 +99,13 @@ class _WC:
             __ITEM_CHOICE = _WC._System__load_archive(
                 ID_FOLDER=id, NAME_ARCHIVE=data, TYPE="JSON")
 
-    def __Nodes__copy(event):
+    def _Nodes__copy(event):
         if (12 == event.state and event.keysym == 'c'):
             return
         else:
             return "break"
 
-    def __Procces__edit_text(NODE_TEXT: Text, TEXT: str, TYPE: Literal["default", "custom"], LIST=[], IS_TEXT=True, IS_EMPY=True):
+    def _Procces__edit_text(NODE_TEXT: Text, TEXT: str, TYPE: Literal["default", "custom"], LIST=[], IS_TEXT=True, IS_EMPY=True):
 
         if IS_TEXT:
             if IS_EMPY == False:
@@ -124,11 +124,11 @@ class _WC:
         else:
             NODE_TEXT.insert("end", f"{LIST}")
             NODE_TEXT.bind("<<ListboxSelect>>",
-                           lambda e: _WC.__call_back(event=e, id=int(TYPE)))
+                           lambda e: _WC._call_back(event=e, id=int(TYPE)))
             
             return NODE_TEXT
 
-    def __Procces__add_scroll(NODE_TEXT: Text):
+    def _Procces__add_scroll(NODE_TEXT: Text):
 
         scroll = Scrollbar(master=NODE_TEXT, orient="vertical")
         scroll.config(command=NODE_TEXT.yview)
@@ -137,20 +137,21 @@ class _WC:
         scroll.grid(padx=660, ipady=178)
         return NODE_TEXT
 
-    def __Nodes__add_action_button(NODE_MASTER, TYPE: Literal["exit", "load_window", "save_archive", "test"] = ..., ID_WINDOW: int = ..., ID_FOLDER: int = ..., DATA_SAVE: dict = ...):
+    def _Nodes__add_action_button(NODE_MASTER, TYPE: Literal["exit", "load_window", "save_archive", "test"] = ..., ID_WINDOW: int = ..., ID_FOLDER: int = ..., DATA_SAVE: dict = ...):
+        global _ID_WINDOW
 
         if TYPE == "exit":
             CURRENT_WINDOW.insert(0, "EXIT")
             return NODE_MASTER.destroy()
         elif TYPE == "save_archive":
-            __ID_WINDOW = ID_WINDOW
+            _ID_WINDOW = ID_WINDOW
 
             _WC._System__save_archive(
                 DATA_SAVE=DATA_SAVE, ID_FOLDER=ID_FOLDER, NAME_ARCHIVE=ENTRY_DATA.get())
 
             NODE_MASTER.destroy()
         elif TYPE == "load_window":
-            __ID_WINDOW = ID_WINDOW
+            _ID_WINDOW = ID_WINDOW
             return NODE_MASTER.destroy()
         elif TYPE == "test":
             print("TEST IS READY")
@@ -202,8 +203,15 @@ class _WC:
                 else:
                     NODE_VIDEO.seek(int(ver_limit["duration"]))
 
-    def _Procces_sound_play(ID_DIR:int, NAME_ARCHIVE:str):
-        winsound.PlaySound(os.path.join(_Config__DIR_FOLDER[ID_DIR], NAME_ARCHIVE), winsound.SND_FILENAME)
+    def _Procces_sound_play(ID:int, NAME_ARCHIVE:str=..., is_load=False):
+        
+        if is_load != True:
+            song = winsound.PlaySound(os.path.join(_Config__DIR_FOLDER[ID], NAME_ARCHIVE), winsound.SND_FILENAME)
+            _Config__SOUND.append(song)
+        else:
+            song = _Config__SOUND[ID]
+        
+        return song
 
 class WC:
 
@@ -215,7 +223,7 @@ class WC:
             if CURRENT_WINDOW[0] == "EXIT":
                 break
             else:
-                _WC.__Load_window()
+                _WC._Load_window()
 
         print("||APP END||")
         return
@@ -232,16 +240,16 @@ class WC:
             node_button = None
 
             if TYPE == "load_window":
-                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
+                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC._Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE, ID_WINDOW=IDS[0]), font=FONT)
             elif TYPE == "save_archive":
-                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
+                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC._Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE, ID_WINDOW=IDS[0], ID_FOLDER=IDS[1], DATA_SAVE=DATA), font=FONT)
             elif TYPE == "exit":
-                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
+                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC._Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE), font=FONT)
             else:
-                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC.__Nodes__add_action_button(
+                node_button = Button(master=NODE_MASTER, text=TEXT, command=lambda: _WC._Nodes__add_action_button(
                     NODE_MASTER=NODE_MASTER, TYPE=TYPE), font=FONT)
 
             if HEIGH == 0 or WIDTH == 0:
@@ -263,14 +271,14 @@ class WC:
 
             return node_button
 
-        def FuncText(NodeMaster, Font: Font, CAN_COPY=False, X=0, Y=0, HEIGH=0, WIDTH=0):
+        def FuncText(NODE_MASTER, FONT: Font, CAN_COPY=False, X=0, Y=0, HEIGH=0, WIDTH=0):
             """
             crea una nodo de texto, especifica con "CAN_COPY" si quieres que el usuario pueda o no
             copiar el contenido de este
             """
-            NODE_TEXT = Text(master=NodeMaster, font=Font)
+            NODE_TEXT = Text(master=NODE_MASTER, font=FONT)
             if CAN_COPY == False:
-                NODE_TEXT.bind("<Key>", lambda e: _WC.__Nodes__copy(e))
+                NODE_TEXT.bind("<Key>", lambda e: _WC._Nodes__copy(e))
             NODE_TEXT.place(x=X, y=Y, width=WIDTH, height=HEIGH)
 
             return NODE_TEXT
@@ -290,21 +298,29 @@ class WC:
                 else:
                     node_label.place(x=X, y=Y, height=HEIGH, width=WIDTH)
 
+                return node_label
+
             elif TYPE == "image":
                 IMA_REW = None
 
-                Photo = Image.open(f"{_Nodes__IMAGE_LOAD[ID_IMA_DIR]}")
+                try:
+                    Photo = Image.open(f"{_Nodes__IMAGE_LOAD[ID_IMA_DIR]}")
+                
+                    if ReX == 0 or ReY == 0:
+                        IMA_REW = ImageTk.PhotoImage(Photo)
+                    else:
+                        Photo_rew = Photo.resize((ReX, ReY))
+                        IMA_REW = ImageTk.PhotoImage(Photo_rew)
 
-                if ReX == 0 or ReY == 0:
-                    IMA_REW = ImageTk.PhotoImage(Photo)
-                else:
-                    Photo_rew = Photo.resize((ReX, ReY))
-                    IMA_REW = ImageTk.PhotoImage(Photo_rew)
+                    node_label = Label(NODE_MASTER, image=IMA_REW)
+                    node_label.place(x=X, y=Y)
 
-                node_label = Label(NODE_MASTER, image=IMA_REW)
-                node_label.place(x=X, y=Y)
+                    return node_label
+                except:
+                    print("||ERROR|| IMAGEN NO ENCONTRADA")
+                    WC.Nodes.FuncLabel(NODE_MASTER=NODE_MASTER, TYPE="normal",FONT=FONT,TEXT="||IMAGEN NO ENCONTRADA||", HEIGH=HEIGH, WIDTH=WIDTH, X=X, Y=Y)
 
-            return node_label
+            
 
         def FuncEntry(NODE_MASTER, FONT: Font, X: int = ..., Y: int = ..., WIDTH: int = ...):
             """
@@ -375,15 +391,19 @@ class WC:
             """
             CURRENT_WINDOW.append((ID, TAG))
 
-        def SoundPlay(ID_DIR, NAME_ARCHIVE):
-            return _WC._Procces_sound_play(ID_DIR=ID_DIR, NAME_ARCHIVE=NAME_ARCHIVE)
+        def SoundPlay(ID:int, NAME_ARCHIVE:str=..., is_load=False):
+            """
+            Crea una instancia de musica/sonido para reproducirse, toda canción creada, es guardada
+            en ID, si quiere volver a cargarla, solo tiene que usar "ID"+ "is_load" para ejecutarla
+            """
+            return _WC._Procces_sound_play(ID=ID, NAME_ARCHIVE=NAME_ARCHIVE, is_load=is_load)
 
         def TextEdit(NODE_TEXT: Text, TYPE: Literal["default", "custom"], TEXT="", IS_TEXT=True, IS_EMPY=True, LIST: list = ...):
             """
             edita un nodo de texto, elige un tipo para el saber la conexion a trabajar, setea el texto y especifica si es texto lo qie se trabaja o si esta limpio,
             es opcional si incluir una lista o no
             """
-            return _WC.__Procces__edit_text(NODE_TEXT=NODE_TEXT, TEXT=TEXT, TYPE=TYPE, IS_TEXT=IS_TEXT, IS_EMPY=IS_EMPY, LIST=LIST)
+            return _WC._Procces__edit_text(NODE_TEXT=NODE_TEXT, TEXT=TEXT, TYPE=TYPE, IS_TEXT=IS_TEXT, IS_EMPY=IS_EMPY, LIST=LIST)
 
         def CreateFont(SIZE=10, IS_BLACK=False, IS_SLASH=False, IS_RALL=False, FAMILY=""):
             """
@@ -412,7 +432,7 @@ class WC:
             """
             agrega un scroll a un "NODE_TEXT"
             """
-            return _WC.__Procces__add_scroll(NODE_TEXT=NODE_TEXT)
+            return _WC._Procces__add_scroll(NODE_TEXT=NODE_TEXT)
 
     class System:
 
