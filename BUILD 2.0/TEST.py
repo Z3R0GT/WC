@@ -26,7 +26,7 @@ VERSION = "0.2.1"
 TYPE = SearchBase.SearchOther(Type="Prota")
 RAZE = SearchBase.SearchOther(Type="Raze")
 
-PATH_INFO = f"Path #18 news (05/09/2023): \n- Lib version {LIB_VERSION} \n- Current app version: {NAMEVERSION} {VERSION} \n- App is already for test in case except by load of   archive .json \n- we ready up for you feed back "
+PATH_INFO = f"Path #18 news (05/09/2023): \n- Lib version {CUR_VERSION} \n- Current app version: {NAMEVERSION} {VERSION} \n- App is already for test in case except by load of   archive .json \n- we ready up for you feed back "
 
 SavedData = os.listdir("app/UserSaved")
 
