@@ -51,3 +51,7 @@ BUILD 5.0.1 -- se puede intertrepar que la BUILD esta en su versión 5 que no se
 1. Soporte implica solución de errores, más no significa actualización, si quiere una version con mas funciones mira las versiones presentes y sus respectivos datos.
 
 2. no somos dueños de ninguna libreria usada en este proyecto, en caso obtenga algun error, puede reportarlo o consultar en la paginá de GitHub (https://github.com/Z3R0GT/WC/issues).
+
+## Capturas
+
+<img src="https://github.com/Z3R0GT/WC/blob/main/Screenshot/ExampleCode.png">
