@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 # WC
 Window Controller (controlador de ventanas) o WC es una libreria que empaqueta otras tanto grandes como pequeñas, proveyendo multiples funciones para facilitar el crear GUIs, creado por
 Z3R0_GT con la iniciativa de "Facilitar el desarrollo de GUIs con python, sin perder mucho tiempo en el proceso con investigaciones para averiguar como lograrlo".
