@@ -164,3 +164,4 @@ cython_debug/
 *.zip
 # Test ignore
 TEST/*
+*.ini

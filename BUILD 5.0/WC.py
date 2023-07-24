@@ -15,7 +15,7 @@ import os
 import json
 import winsound
 
-from tkinter import Text, Label, Entry, StringVar, Scrollbar, Listbox, Button, OptionMenu, Scale
+from tkinter import Text, Label, Entry, StringVar, Scrollbar, Listbox, Button, OptionMenu, Scale, messagebox
 from typing_extensions import Literal
 from tkinter.font import Font
 from PIL import Image, ImageTk
@@ -23,7 +23,7 @@ from PIL import Image, ImageTk
 from tkVideoPlayer import TkinterVideo
 
 ###----------------------Constantes----------------------###
-VERSION_LIB = "5.0.9"
+VERSION_LIB = "5.1"
 """
 Version de la libreria actual
 """
@@ -32,6 +32,16 @@ CURRENT_WINDOW = ["CONTINUE"]
 Esta es una constante de estado, cuando esta en "CONTINUE" el programa podra correr con normalidad,
 pero si esta en "EXIT" entonces el programa terminara, siendo la posicion 0 la mas importante y no debes de cambiarla bajo ninguna sircunstancia
 salvo que quieres romper tu programa
+"""
+
+ERROR_INFO = f"Por favor, proceda con alguna de los siguientes alternativas. \n \
+    - Coloquese en contacto con el Dev (en caso de descargar el software). \n \
+    - Reinstale el Sofware o reestablesca las carpetas/archivos que alla eliminado. \n \
+    - Declare correctamente las variables correspondientes al tipo de error. \n \
+    - Abra el repositorio WC y abra un issue con el tag Bug/Error, llene la plantilla con los datos correspondientes."
+"""
+Usado para en caso de un error, se proceda a imprimir un texto en una ventana
+se recomienda no cambiarlo.
 """
 
 SECRET = "ESTE EASTER EGG ES PARA BARRETO ALCANTARA IMANOL, UN BUEN AMIGO :D"
@@ -76,11 +86,12 @@ class _WC:
                 file.close()
                 return print("HECHO SAVEARCHIVE \n")
         except:
+            messagebox.showerror("Error al guardar", f"la carpeta especificada no existe o fue movida ({_ClassConfig__DIR_FOLDER[ID_FOLDER]}), {ERROR_INFO}")
             return print(f"\n ||ERROR|| info= ID FOLDER: {_ClassConfig__DIR_FOLDER[ID_FOLDER]}; NAME ARCHIVE: {NAME_ARCHIVE} Error.\n")
 
     def _ClassSystem__load_archive(ID_FOLDER: int, NAME_ARCHIVE: str, TYPE: Literal["JSON", "IMA"] = ...):
-        try:
-            if TYPE == "JSON":
+        if TYPE == "JSON":
+            try:
                 if NAME_ARCHIVE.find(".json") != -1:
                     with open(f"{_ClassConfig__DIR_FOLDER[ID_FOLDER]}/{NAME_ARCHIVE}") as file:
                         print("HECHO LOAD JSON \n")
@@ -89,25 +100,33 @@ class _WC:
                     with open(f"{_ClassConfig__DIR_FOLDER[ID_FOLDER]}/{NAME_ARCHIVE}.json") as file:
                         print("HECHO LOAD JSON \n")
                         return json.load(file)
-
-            elif TYPE == "IMA":
-                photo = os.path.join(
-                    _ClassConfig__DIR_FOLDER[ID_FOLDER], NAME_ARCHIVE)
-                _ClassNode__IMAGE_LOAD.append(photo)
-                print("HECHO LOADARCHIVE \n")
-                return photo
-        except:
-            return print(f"\n ||ERROR|| info= ID FOLDER: {_ClassConfig__DIR_FOLDER[ID_FOLDER]}, LIST ERROR: {TYPE} \n")
+            except:
+                messagebox.showerror("Error load JSON", f"El archivo {NAME_ARCHIVE} no fue encontrado, {ERROR_INFO}")
+                return print(f"\n ||ERROR|| info= ID FOLDER: {_ClassConfig__DIR_FOLDER[ID_FOLDER]}, LIST ERROR: {TYPE} \n")
+        elif TYPE == "IMA":
+                try:
+                    photo = os.path.join(
+                        _ClassConfig__DIR_FOLDER[ID_FOLDER], NAME_ARCHIVE)
+                    _ClassNode__IMAGE_LOAD.append(photo)
+                    print("HECHO LOADARCHIVE \n")
+                    return photo
+                except:
+                    messagebox.showerror("Error load IMAGE", f"el archivo {NAME_ARCHIVE} no fue encontrado o la extensión no coincide, {ERROR_INFO}")
+                    return print(f"\n ||ERROR|| info= ID FOLDER: {_ClassConfig__DIR_FOLDER[ID_FOLDER]}, LIST ERROR: {TYPE} \n")
 
     def _Load_window():
-
-        if _ID_WINDOW == 0:
-            CURRENT_WINDOW[(_ID_WINDOW+1)][1].WindowMain()
-        else:
-            CURRENT_WINDOW[_ID_WINDOW][1].WindowMain()
-        return print("HECHO LOAD WINDOW")
+        try:
+            if _ID_WINDOW == 0:
+                CURRENT_WINDOW[(_ID_WINDOW+1)][1].WindowMain()
+            else:
+                CURRENT_WINDOW[_ID_WINDOW][1].WindowMain()
+            return print("HECHO LOAD WINDOW")
+        except:
+            messagebox.showerror("Critical Error", f"Un error interno ocurrio, consulte con la consola (caso de ser dev) o {ERROR_INFO}")
+            print(f"||CRITIC ERROR|| info= Parece que la ventana ingesada no cuenta con la función -WindowMain- o la venta que se tiene actualmente no coincide, \n por favor, registre correctamente su codigo, caso de no encontrar solución dirijase al repositorio WC,\n abra un issue con el tag Bug/Error ")
 
     def _call_back(event, id):
+        #SE NECESITA ADAPTAR ESTO PARA TANTO CARGA, COMO RETORNAR UN OBJETO SELECIONADO
         global __ITEM_CHOICE
 
         selec = event.widget.curselection()
@@ -145,7 +164,12 @@ class _WC:
                            lambda e: _WC._call_back(event=e, id=1))
 
             return NODE_TEXT
-
+    def _ClassProcces__set_trans(NodeAll, ID_IMA, X, Y):
+        """
+        crea una instancia para transparencia (es automatica)
+        """
+        ...
+    
     def _ClassProcces__add_scroll(NODE_TEXT: Text):
 
         scroll = Scrollbar(master=NODE_TEXT, orient="vertical")
@@ -245,7 +269,8 @@ class _WC:
                 NODE_VIDEO.load(path=os.path.join(
                     _ClassConfig__DIR_FOLDER[ID_FOLDER], NAME))
             except:
-                print(f"||ERRO||, info= VIDEO, En caso de tener este error, subir una captura tanto de este error \n \
+                messagebox.showerror("Error Video", "Esta función sigue en desarrollo, consulte con la consola (no implmentar para un software)")
+                print(f"||ERROr||, info=En caso de tener este error, subir una captura tanto de este error \n \
                         como del codigo que lo ocaciono a Github: https://github.com/Z3R0GT/WC/issues, en breve le respondemos!")
         elif TYPE == "frame":
             if IS_SPECIF_SEC:
@@ -290,6 +315,7 @@ class _WC:
         global _ClassNode__ENTRY_SCALE
 
         if TYPE == "other":
+            print(_ClassNode__ENTRY_SCALE)
             _ClassNode__ENTRY_SCALE.append(num)
         elif TYPE == "vol":
             if TYPE_VOL == "general":
