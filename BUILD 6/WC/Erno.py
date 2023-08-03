@@ -6,6 +6,8 @@ Liberia usada para ejecutar error propios de WC, creado por @Z3R0_GT y @Gio334
 from tkinter import messagebox
 from typing_extensions import Literal
 
+VERSION_ERNO = "1.0.1"
+
 _execute_error__INFO = f"por favor, proceda con alguna de los siguientes alternativas. \n \
     - Coloquese en contacto con el Dev (en caso de descargar el software). \n \
     - Reinstale el Sofware o reestablesca las carpetas/archivos que alla eliminado. \n \

@@ -25,7 +25,7 @@ from PIL import Image, ImageTk
 from tkVideoPlayer import TkinterVideo
 
 ### ----------------------Constantes----------------------###
-VERSION_LIB = "6.0"
+VERSION_LIB = "6.0.1"
 """
 Version de la libreria actual
 """
