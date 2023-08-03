@@ -162,6 +162,15 @@ cython_debug/
 
 # Relases
 *.zip
+dist/*
+Widget_Controller.egg-info/*
+__init__.py
+
+# Other
+setup.py
+*.ico
+*.ini
+
+
 # Test ignore
 TEST/*
-*.ini
